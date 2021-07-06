@@ -1,0 +1,45 @@
+var _styleCss = require("./style.css");
+var _three = require("three");
+var _orbitControlsJs = require("../node_modules/three/examples/jsm/controls/OrbitControls.js");
+const sizes = {
+    width: window.innerWidth,
+    height: window.innerHeight
+};
+const scene = new _three.Scene();
+const material = new _three.MeshBasicMaterial({
+});
+const plane = new _three.Mesh(new _three.PlaneBufferGeometry(1, 1), material);
+const torus = new _three.Mesh(new _three.TorusBufferGeometry(0.3, 0.2, 10, 20), material);
+torus.position.x = 1.5;
+scene.add(plane, torus);
+const camera = new _three.PerspectiveCamera(60, sizes.width / sizes.height, 0.1, 1000);
+camera.position.x = 10;
+// renderer 
+const renderer = new _three.WebGLRenderer({
+    canvas: document.querySelector(".bg")
+});
+renderer.setSize(sizes.width, sizes.height);
+// controls 
+const controls = new _orbitControlsJs.OrbitControls(camera, renderer.domElement);
+controls.enableDamping = true;
+//clock 
+const clock = new _three.Clock();
+// handle resizing 
+window.addEventListener('resize', ()=>{
+    sizes.width = window.innerWidth;
+    sizes.height = window.innerHeight;
+    camera.aspect = sizes.width / sizes.height;
+    camera.updateProjectionMatrix();
+    renderer.setSize(sizes.width, sizes.height);
+});
+function animate() {
+    const elapsedtime = clock.getElapsedTime();
+    torus.position.x = 0.01 * elapsedtime;
+    torus.position.y = 0.01 * elapsedtime;
+    plane.position.x = 0.01 * elapsedtime;
+    plane.position.y = 0.01 * elapsedtime;
+    controls.update();
+    renderer.render(scene, camera);
+    window.requestAnimationFrame(animate);
+}
+animate();

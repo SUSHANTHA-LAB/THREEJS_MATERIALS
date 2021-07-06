@@ -2,9 +2,9 @@
   "name": "threejs_materials",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "parcel src/index.html",
+    "build": "parcel build src/index.html"
   },
   "repository": {
     "type": "git",
@@ -15,5 +15,9 @@
   "bugs": {
     "url": "https://github.com/SUSHANTHA-LAB/THREEJS_MATERIALS/issues"
   },
-  "homepage": "https://github.com/SUSHANTHA-LAB/THREEJS_MATERIALS#readme"
+  "homepage": "https://github.com/SUSHANTHA-LAB/THREEJS_MATERIALS#readme",
+  "devDependencies": {
+    "parcel": "^2.0.0-beta.3.1",
+    "three": "^0.130.1"
+  }
 }

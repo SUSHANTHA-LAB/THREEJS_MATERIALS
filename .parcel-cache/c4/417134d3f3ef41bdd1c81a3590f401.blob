@@ -1,0 +1,8 @@
+.bg{
+    position: fixed;
+    top: 0;
+    left: 0;
+    margin: 0;
+    padding: 0;
+}
+/*# sourceMappingURL=index.HASH_REF_203ec653e7595e15393e422c15551671.css.map */

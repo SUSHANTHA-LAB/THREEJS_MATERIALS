@@ -1,0 +1,38 @@
+var _styleCss = require("./style.css");
+var _three = require("three");
+var _orbitControlsJs = require("../node_modules/three/examples/jsm/controls/OrbitControls.js");
+const sizes = {
+    width: window.innerWidth,
+    height: window.innerHeight
+};
+const scene = new _three.Scene();
+const geometry = new _three.BoxBufferGeometry(1, 1, 1);
+const material = new _three.MeshBasicMaterial({
+    color: 16777215
+});
+const box = new _three.Mesh(geometry, material);
+scene.add(box);
+const camera = new _three.PerspectiveCamera(60, sizes.width / sizes.height, 0.1, 1000);
+camera.position.x = 10;
+// renderer 
+const renderer = new _three.WebGLRenderer({
+    canvas: document.querySelector(".bg")
+});
+renderer.setSize(sizes.width, sizes.height);
+// controls 
+const controls = new _orbitControlsJs.OrbitControls(camera, renderer.domElement);
+controls.enableDamping = true;
+// handle resizing 
+window.addEventListener('resize', ()=>{
+    sizes.width = window.innerWidth;
+    sizes.height = window.innerHeight;
+    camera.aspect = sizes.width / sizes.height;
+    camera.updateProjectionMatrix();
+    renderer.setSize(sizes.width, sizes.height);
+});
+function animate() {
+    controls.update();
+    renderer.render(scene, camera);
+    window.requestAnimationFrame(animate);
+}
+animate();
